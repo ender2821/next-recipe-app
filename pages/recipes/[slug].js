@@ -34,7 +34,7 @@ export default function OneRecipe({ data, preview }) {
 
   const { data: recipe } = usePreviewSubscription(recipeQuery, {
     params: { slug: data.recipe?.slug.current },
-    initialData: data.recipe,
+    initialData: data?.recipe,
     enabled: preview
   });
 
