@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router';
-import ErrorPage from 'next/error'
 import { sanityClient, urlFor, usePreviewSubscription } from '../../lib/sanity';
-import {getClient} from '../../lib/sanity.server'
-
 import {PortableText} from '@portabletext/react';
 
 import styles from './[slug].module.css';
@@ -29,13 +26,8 @@ const recipeQuery = `*[_type == "recipe" && slug.current == $slug][0]{
 }`;
 
 export default function OneRecipe({ data, preview }) {
-
-  const { data: recipe } = usePreviewSubscription(recipeQuery, {
-    params: { slug: data.recipe?.slug.current },
-    initialData: data?.recipe,
-    enabled: preview
-  });
-
+  
+  const [favorite, setFavorite] = useState(data?.recipe?.favorite);
 
   const router = useRouter();
 
@@ -43,11 +35,15 @@ export default function OneRecipe({ data, preview }) {
     return <div>...Loading</div>;
   }
 
-  if (!router.isFallback && !data.recipe?.slug) {
-    return <ErrorPage statusCode={404} />
-  }
+  // TODO: Get Preview mode working, curently errors out. 
+  // const { data: recipe } = usePreviewSubscription(recipeQuery, {
+  //   params: { slug: data.recipe?.slug.current },
+  //   initialData: data,
+  //   enabled: preview
+  // });
 
-  const [favorite, setFavorite] = useState(data?.recipe?.favorite)
+  const { recipe } = data;
+
 
   const handleFavorite = async() => {
     if ( favorite ) {
@@ -113,7 +109,7 @@ export default function OneRecipe({ data, preview }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await getClient().fetch(
+  const paths = await sanityClient.fetch(
     `*[_type == "recipe" && defined(slug.current)]{
       "params": {
         "slug": slug.current
@@ -127,9 +123,9 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps ({ params, preview = false }) {
+export async function getStaticProps ({ params }) {
   const { slug } = params;
-  const recipe = await getClient(preview).fetch(recipeQuery, { slug })
+  const recipe = await sanityClient.fetch(recipeQuery, { slug })
 
   if (!recipe) return { notFound: true }
 
