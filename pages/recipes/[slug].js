@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router';
+import ErrorPage from 'next/error'
 import { sanityClient, urlFor, usePreviewSubscription } from '../../lib/sanity';
+import {getClient} from '../../lib/sanity.server'
+
 import {PortableText} from '@portabletext/react';
 
 import styles from './[slug].module.css';
@@ -29,20 +32,22 @@ export default function OneRecipe({ data, preview }) {
   
   const [favorite, setFavorite] = useState(data?.recipe?.favorite);
 
+  const { data: recipe } = usePreviewSubscription(recipeQuery, {
+    params: { slug: data.recipe?.slug.current },
+    initialData: data.recipe,
+    enabled: preview
+  });
+
+
   const router = useRouter();
 
   if( router.isFallback ) {
     return <div>...Loading</div>;
   }
 
-  // TODO: Get Preview mode working, curently errors out. 
-  // const { data: recipe } = usePreviewSubscription(recipeQuery, {
-  //   params: { slug: data.recipe?.slug.current },
-  //   initialData: data,
-  //   enabled: preview
-  // });
-
-  const { recipe } = data;
+  if (!router.isFallback && !data.recipe?.slug) {
+    return <ErrorPage statusCode={404} />
+  }
 
 
   const handleFavorite = async() => {
@@ -109,7 +114,7 @@ export default function OneRecipe({ data, preview }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await sanityClient.fetch(
+  const paths = await getClient().fetch(
     `*[_type == "recipe" && defined(slug.current)]{
       "params": {
         "slug": slug.current
@@ -123,9 +128,9 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps ({ params }) {
+export async function getStaticProps ({ params, preview = false }) {
   const { slug } = params;
-  const recipe = await sanityClient.fetch(recipeQuery, { slug })
+  const recipe = await getClient(preview).fetch(recipeQuery, { slug })
 
   if (!recipe) return { notFound: true }
 
