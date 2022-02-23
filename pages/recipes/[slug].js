@@ -30,7 +30,7 @@ export default function OneRecipe({ data, preview }) {
   const router = useRouter();
 
   if( router.isFallback ) {
-    return <div>...Loading</div>
+    return <div>...Loading</div>;
   }
 
   // TODO: Get Preview mode working, curently errors out. 
