@@ -26,6 +26,8 @@ const recipeQuery = `*[_type == "recipe" && slug.current == $slug][0]{
 }`;
 
 export default function OneRecipe({ data, preview }) {
+  
+  const [favorite, setFavorite] = useState(data?.recipe?.favorite);
 
   const router = useRouter();
 
@@ -42,7 +44,6 @@ export default function OneRecipe({ data, preview }) {
 
   const { recipe } = data;
 
-  const [favorite, setFavorite] = useState(data?.recipe?.favorite)
 
   const handleFavorite = async() => {
     if ( favorite ) {
