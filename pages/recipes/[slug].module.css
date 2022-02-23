@@ -1,0 +1,99 @@
+.page{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.mainImageContain {
+  flex: 1 0 100%;
+}
+
+.mainImageContain img{
+  width: 100%;
+  object-fit: contain;
+}
+
+.page ul {
+  flex: 1 0 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and ( min-width: 768px) {
+  .mainImageContain {
+    flex: 1 0 calc(50% - 20px);
+  }
+
+  .page ul {
+    flex: 1 0 calc(50% - 20px);
+  }
+}
+
+
+.favButtonActive {
+  background: none;
+  border: 1px solid #FF725C;
+  border-radius: 50%;
+  cursor: pointer;
+  displaY: flex;
+  margin-bottom: 20px;
+  padding: 10px;
+
+}
+
+.favButtonActive svg{
+  color: #FF725C;
+  height: 20px;
+  width: 20px;}
+
+.favButton {
+  background: none;
+  border: 1px solid #878787;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  margin-bottom: 20px;
+  padding: 10px;
+  transition: border 125ms ease;
+}
+
+.favButton:hover, .favButton:focus {
+  border: 1px solid #fff;
+}
+
+.favButton svg{
+  color: #878787;
+  height: 20px;
+  transition: color 125ms ease;
+  width: 20px;
+}
+
+.favButton:hover svg, .favButton:focus svg {
+  color: #fff;
+}
+
+.ingredient {
+  displaY: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 1rem;
+}
+
+.imageContain {
+  border-radius: 5px;
+  display: flex;
+  height: 50px;
+  flex: 0 0 50px;
+  overflow: hidden;
+}
+
+.imageContain img{
+  width: 100%;
+  object-fit: contain;
+}
+
+.contentContain {
+  align-items: center;
+  display: flex;
+  flex: 1 0 auto;
+  padding-left: 1rem;
+}

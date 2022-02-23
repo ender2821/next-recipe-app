@@ -1,0 +1,19 @@
+.header {
+  background: #343535;
+  displaY: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.header a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px 20px;
+  width: 100%;
+}

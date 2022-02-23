@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+/recipes/node_modules
+.env.local
+
 /.pnp
 .pnp.js
 

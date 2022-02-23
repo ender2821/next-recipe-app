@@ -2,13 +2,16 @@
   "name": "next-recipe-app",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@portabletext/react": "^1.0.3",
+    "@sanity/image-url": "^1.0.1",
     "next": "12.0.10",
+    "next-sanity": "0.5.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
