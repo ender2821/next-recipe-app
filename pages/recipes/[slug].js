@@ -29,8 +29,6 @@ const recipeQuery = `*[_type == "recipe" && slug.current == $slug][0]{
 }`;
 
 export default function OneRecipe({ data, preview }) {
-  
-  const [favorite, setFavorite] = useState(data?.recipe?.favorite);
 
   const { data: recipe } = usePreviewSubscription(recipeQuery, {
     params: { slug: data.recipe?.slug.current },
@@ -49,6 +47,7 @@ export default function OneRecipe({ data, preview }) {
     return <ErrorPage statusCode={404} />
   }
 
+  const [favorite, setFavorite] = useState(data?.recipe?.favorite)
 
   const handleFavorite = async() => {
     if ( favorite ) {
