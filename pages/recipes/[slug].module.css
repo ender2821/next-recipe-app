@@ -6,6 +6,8 @@
 
 .mainImageContain {
   flex: 1 0 100%;
+  height: 250px;
+  position: relative;
 }
 
 .mainImageContain img{
@@ -22,6 +24,7 @@
 @media screen and ( min-width: 768px) {
   .mainImageContain {
     flex: 1 0 calc(50% - 20px);
+    height: 400px;
   }
 
   .page ul {
@@ -84,6 +87,7 @@
   height: 50px;
   flex: 0 0 50px;
   overflow: hidden;
+  position: relative;
 }
 
 .imageContain img{
@@ -96,4 +100,18 @@
   display: flex;
   flex: 1 0 auto;
   padding-left: 1rem;
+}
+
+.directionsContain {
+  background: #4e5052;
+  box-shadow:
+    0.6px 0.5px 1.1px rgba(0, 0, 0, 0.02),
+    1.5px 1.1px 2.7px rgba(0, 0, 0, 0.028),
+    2.9px 2.1px 5px rgba(0, 0, 0, 0.035),
+    5.1px 3.8px 8.9px rgba(0, 0, 0, 0.042),
+    9.6px 7.1px 16.7px rgba(0, 0, 0, 0.05),
+    23px 17px 40px rgba(0, 0, 0, 0.07)
+  ;
+  margin-top: 20px;
+  padding: 20px;
 }

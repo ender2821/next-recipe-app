@@ -1,8 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
+import Img from 'next/image';
 import Link from 'next/link'
-
-import { sanityClient, urlFor } from '../lib/sanity'
+import { useNextSanityImage } from 'next-sanity-image';
+import sanityClient from '@sanity/client';
+import { urlFor } from '../lib/sanity'
 
 import styles from './index.module.css'
 
@@ -14,6 +15,11 @@ const recipesQuery = `*[_type == "recipe"]{
 }`;
 
 export default function Home({ recipes }) {
+
+  const imageProps = useNextSanityImage(
+		configuredSanityClient,
+		recipes?.mainImage
+	);
 
 
   return (
@@ -31,8 +37,10 @@ export default function Home({ recipes }) {
           <li key={recipe._id} className={styles.recipeCard}>
             <Link href={`/recipes/${recipe.slug.current}`}>
               <a>
-                {/* <Image src={urlFor(recipe.mainImage).url()} width={500} layout="responsive" alt={recipe.name}/> */}
-                <img src={urlFor(recipe.mainImage).url()} alt={recipe.name}/>
+                <div className={styles.imageContain}>
+                  <Img src={urlFor(recipe.mainImage).url()} layout="fill" objectFit="cover" alt={recipe.name}/>
+                </div>
+                {/* <img src={urlFor(recipe.mainImage).url()} alt={recipe.name}/> */}
                 <span>{recipe.name}</span>
               </a>
             </Link>
@@ -43,9 +51,19 @@ export default function Home({ recipes }) {
   )
 }
 
+const configuredSanityClient = sanityClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  useCdn: true
+});
 
 // We await this function so that on build time Next.js will prerender this page using these fetched props. 
-export async function getStaticProps() {
-  const recipes = await sanityClient.fetch(recipesQuery)
+// export async function getStaticProps() {
+//   const recipes = await sanityClient.fetch(recipesQuery)
+//   return { props: { recipes } }
+// }
+
+export const getServerSideProps = async function () {
+  const recipes = await configuredSanityClient.fetch(recipesQuery)
   return { props: { recipes } }
 }
