@@ -114,7 +114,7 @@ export default function OneRecipe( props ) {
 }
 
 const configuredSanityClient = sanityClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  projectId: 'purfkp0z',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   useCdn: true
 });
