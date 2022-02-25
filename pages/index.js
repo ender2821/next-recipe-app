@@ -1,9 +1,8 @@
 import Head from 'next/head'
-import Img from 'next/image';
 import Link from 'next/link'
-import { useNextSanityImage } from 'next-sanity-image';
 import sanityClient from '@sanity/client';
-import { urlFor } from '../lib/sanity'
+
+import SanityImage from '../components/SanityImage'
 
 import styles from './index.module.css'
 
@@ -16,13 +15,6 @@ const recipesQuery = `*[_type == "recipe"]{
 
 export default function Home({ recipes }) {
 
-  const imageProps = useNextSanityImage(
-    configuredSanityClient,
-    recipes[0].mainImage
-  );
-
-  console.log(imageProps);
-
   return (
     <div className={styles.container}>
       <Head>
@@ -33,18 +25,14 @@ export default function Home({ recipes }) {
 
       <h1>Lets cook some recipes</h1>
 
-                  <Img {...imageProps} layout="fill" objectFit="cover"/>
-
-
       <ul className={styles.recipesList}>
         {recipes?.length > 0 && recipes.map((recipe, i) => (
           <li key={recipe._id} className={styles.recipeCard}>
             <Link href={`/recipes/${recipe.slug.current}`}>
               <a>
                 <div className={styles.imageContain}>
-                  {/* <Img {...imageProps[i].mainImage} layout="fill" objectFit="cover" alt={recipe.name}/> */}
+                  <SanityImage imageProps={recipe.mainImage} layout="fill" objectFit="cover" alt={recipe.name}/>
                 </div>
-                <img src={urlFor(recipe.mainImage).url()} alt={recipe.name}/>
                 <span>{recipe.name}</span>
               </a>
             </Link>

@@ -1,7 +1,7 @@
 import { sanityClient } from "../../lib/sanity";
 
 sanityClient.config ({
-  token: process.env.SANITY_API_TOKEN,
+  token: process.env.SANITY_WRITE_TOKEN,
 });
 
 export default async function favoriteButtonHandler(req, res) {
