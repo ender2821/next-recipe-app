@@ -56,7 +56,7 @@ export default function Home({ recipes }) {
 }
 
 const configuredSanityClient = sanityClient({
-  projectId: 'purfkp0z',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   useCdn: true
 });
