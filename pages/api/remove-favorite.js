@@ -1,12 +1,12 @@
-import { sanityClientOld } from "../../lib/sanity";
+import { sanityClient } from "../../lib/sanity";
 
-sanityClientOld.config ({
+sanityClient.config ({
   token: process.env.SANITY_WRITE_TOKEN,
 });
 
 export default async function favoriteButtonHandler(req, res) {
   const { _id } = JSON.parse(req.body);
-  const data = await sanityClientOld
+  const data = await sanityClient
     .patch(_id)
     .setIfMissing({ favorite: false })
     .set({ favorite: false })

@@ -1,48 +1,18 @@
 
 .recipesList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
   list-style: none;
   padding: 0;
-}
-
-.recipeCard {
-  background: #4e5052;
-  box-shadow:
-    0.6px 0.5px 1.1px rgba(0, 0, 0, 0.02),
-    1.5px 1.1px 2.7px rgba(0, 0, 0, 0.028),
-    2.9px 2.1px 5px rgba(0, 0, 0, 0.035),
-    5.1px 3.8px 8.9px rgba(0, 0, 0, 0.042),
-    9.6px 7.1px 16.7px rgba(0, 0, 0, 0.05),
-    23px 17px 40px rgba(0, 0, 0, 0.07)
-  ;
-  transform: scale(1);
-  transition: transform 125ms ease;
-}
-
-.recipeCard:hover, .recipeCard:focus {
-  transform: scale(1.03);
 }
 
 .recipeCard a{
   color: #fff;
   display: block;
   font-size: 2.2rem;
+  height: 100%;
   text-decoration: none;
-
-}
-
-.recipeCard span{
-  display: block;
-  padding: 10px;
-  text-align: center;
-}
-
-.imageContain {
-  height: 200px;
-  position: relative;
-  width: 100%;
 }
 
 .recipeCard img {
@@ -51,10 +21,4 @@
   object-fit: cover;
   margin-bottom: 1.2rem;
   width: 100%;
-}
-
-@media screen and (min-width: 769px) {
-  .recipesList {
-    gap: 40px;
-  }
 }
