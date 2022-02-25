@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router';
 import { urlFor } from '../../lib/sanity';
-import sanityClient from '@sanity/client';
+import{ configuredSanityClient } from '../../lib/sanity'
 import Img from 'next/image';
 
 import {PortableText} from '@portabletext/react';
@@ -112,13 +112,6 @@ export default function OneRecipe( props ) {
     </article>
   )
 }
-
-const configuredSanityClient = sanityClient({
-  projectId: 'purfkp0z',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: '2021-10-21',
-  useCdn: true
-});
 
 // Option for making static page generation, using serverSideRendering to get Next's Image Optimization API
 
