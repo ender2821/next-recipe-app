@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { sanityClient, urlFor } from '../lib/sanity'
+import { useState, useEffect } from 'react';
 
 import styles from './index.module.css'
 
@@ -8,11 +9,55 @@ const recipesQuery = `*[_type == "recipe"]{
   _id,
   name,
   slug,
-  mainImage
+  mainImage,
+  favorite
 }`;
 
 export default function Home({ recipes }) {
-  
+
+  const [ search, setSearch] = useState('');
+  const [ searchData, setSearchData ] = useState([]);
+
+  const onSearchHandler = event => {
+    setSearch(event.target.value);
+  }
+
+  useEffect(() => {
+    if(search !== '') {
+      const newSearchData = recipes.filter((recipe) => {
+        return Object.values(recipe.name).join('').toLowerCase().includes(search.toLowerCase())
+      });
+      setSearchData(newSearchData);
+    } else {
+      setSearchData(recipes);
+    }
+  }, [search, recipes])
+
+  const recipeList = (data) => {
+    return (
+      <>
+        {data?.length > 0 && data.map((recipe, i) => (
+          <li key={recipe._id} className={styles.recipeCard}>
+            <Link href={`/recipes/${recipe.slug.current}`}>
+              <a>
+                <div className={styles.imageContain}>
+                  {recipe.favorite && <div className={styles.favorite}>
+                    <svg width="15px" height="15px" viewBox="0 0 15 15" fill="#FF725C" >
+                      <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75
+                      C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+                    </svg>
+                  </div>}
+                  <img src={urlFor(recipe.mainImage).url()} alt={recipe.name}/>
+                </div>
+                <span>{recipe.name}</span>
+              </a>
+            </Link>
+          </li>
+        ))}
+      </>
+    )
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -22,38 +67,16 @@ export default function Home({ recipes }) {
       </Head>
 
       <h1>Lets cook some recipes</h1>
-
+      <input value={search} onChange={onSearchHandler} placeholder='Search Recipes' className={styles.search}></input>
       <ul className={styles.recipesList}>
-        {recipes?.length > 0 && recipes.map((recipe, i) => (
-          <li key={recipe._id} className={styles.recipeCard}>
-            <Link href={`/recipes/${recipe.slug.current}`}>
-              <a>
-                <div className={styles.imageContain}>
-                  <img src={urlFor(recipe.mainImage).url()} alt={recipe.name}/>
-                </div>
-                <span>{recipe.name}</span>
-              </a>
-            </Link>
-          </li>
-        ))}
+      {search !== '' ? recipeList(searchData) : recipeList(recipes)}
       </ul>
     </div>
   )
 }
-
-// const configuredSanityClient = sanityClient({
-//   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-//   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-//   useCdn: false
-// });
 
 // We await this function so that on build time Next.js will prerender this page using these fetched props. 
 export async function getStaticProps() {
   const recipes = await sanityClient.fetch(recipesQuery)
   return { props: { recipes } }
 }
-
-// export const getServerSideProps = async function () {
-//   const recipes = await configuredSanityClient.fetch(recipesQuery)
-//   return { props: { recipes } }
-// }

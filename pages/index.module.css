@@ -1,4 +1,22 @@
 
+.container h1 {
+  visibility: hidden;
+  position: absolute;
+  left: -9999px;
+}
+
+.search {
+  background: #4e5052;
+  bordeR: 1px solid #adadad;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+}
+
+.search::placeholder {
+  color: #adadad;
+}
+
 .recipesList {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -17,6 +35,7 @@
     9.6px 7.1px 16.7px rgba(0, 0, 0, 0.05),
     23px 17px 40px rgba(0, 0, 0, 0.07)
   ;
+  position: relative;
   transform: scale(1);
   transition: transform 125ms ease;
 }
@@ -25,12 +44,26 @@
   transform: scale(1.03);
 }
 
+.favorite {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 1));
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 20px;
+}
+
+.favorite svg {
+  display: block;
+  height: 20px;
+  width: 20px;
+}
+
 .recipeCard a{
   color: #fff;
   display: block;
   font-size: 2.2rem;
   text-decoration: none;
-
 }
 
 .recipeCard span{
@@ -56,5 +89,11 @@
 @media screen and (min-width: 769px) {
   .recipesList {
     gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 360px));
+  }
+
+  .search {
+    margin-bottom: 20px;
+    width: 360px;
   }
 }
