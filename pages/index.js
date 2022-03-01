@@ -46,9 +46,7 @@ export default function Home({ recipes }) {
 const configuredSanityClient = sanityClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: "2021-10-21",
-  token: process.env.SANITY_WRITE_TOKEN,
-  useCdn: true
+  useCdn: false
 });
 
 // We await this function so that on build time Next.js will prerender this page using these fetched props. 
