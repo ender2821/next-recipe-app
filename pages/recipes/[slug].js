@@ -1,11 +1,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router';
-import { urlFor } from '../../lib/sanity';
 
 import {PortableText} from '@portabletext/react';
-import sanityClient from '@sanity/client';
-
-import SanityImage from '../../components/SanityImage'
+import { sanityClient, urlFor } from '../../lib/sanity';
 
 import styles from './[slug].module.css';
 
@@ -29,9 +26,9 @@ const recipeQuery = `*[_type == "recipe" && slug.current == $slug][0]{
   favorite
 }`;
 
-export default function OneRecipe( props ) {
+export default function OneRecipe({ data, preview }) {
   
-  const [favorite, setFavorite] = useState(props.data?.recipe?.favorite);
+  const [favorite, setFavorite] = useState(data?.recipe?.favorite);
 
   const router = useRouter();
 
@@ -46,7 +43,7 @@ export default function OneRecipe( props ) {
   //   enabled: preview
   // });
 
-  const { recipe } = props;
+  const { recipe } = data;
 
   const handleFavorite = async() => {
     if ( favorite ) {
@@ -71,8 +68,6 @@ export default function OneRecipe( props ) {
     }
   };
 
-  console.log(recipe)
-
   return (
     <article className={styles.recipe}>
       <h1>{recipe?.name}</h1>
@@ -88,13 +83,13 @@ export default function OneRecipe( props ) {
       </button>
       <div className={styles.page}>
         <div className={styles.mainImageContain}>
-          <SanityImage imageProps={recipe.mainImage} layout="fill" objectFit="cover" alt={recipe.name}/>
+          <img src={urlFor(recipe?.mainImage).url()} alt={recipe?.name}/>
         </div>
         <ul>
           {recipe.ingredient?.map((ingredient) => (
             <li key={ingredient._key} className={styles.ingredient}>
               <div className={styles.imageContain} >
-                <SanityImage imageProps={ingredient?.ingredient?.image} layout="fill" objectFit="cover" alt={recipe.name}/>
+                <img src={urlFor(ingredient?.ingredient?.image).url()} alt={ingredient?.ingredient?.name}/>
               </div>
               <div className={styles.contentContain}>
                 {ingredient?.wholeNumber}
@@ -115,48 +110,27 @@ export default function OneRecipe( props ) {
   )
 }
 
-// Option for making static page generation, using serverSideRendering to get Next's Image Optimization API
+export async function getStaticPaths() {
+  const paths = await sanityClient.fetch(
+    `*[_type == "recipe" && defined(slug.current)]{
+      "params": {
+        "slug": slug.current
+      }
+    }`
+  );
 
-// export async function getStaticPaths() {
-//   const paths = await sanityClient.fetch(
-//     `*[_type == "recipe" && defined(slug.current)]{
-//       "params": {
-//         "slug": slug.current
-//       }
-//     }`
-//   );
+  return {
+    paths,
+    fallback: true
+  }
+}
 
-//   console.log(paths)
-
-//   return {
-//     paths,
-//     fallback: true
-//   }
-// }
-
-// export async function getStaticProps ({ params }) {
-//   const { slug } = params;
-//   const recipe = await sanityClient.fetch(recipeQuery, { slug })
-
-//   if (!recipe) return { notFound: true }
-
-//   return { props: { data: { recipe }, preview: true } }
-// }
-
-const configuredSanityClient = sanityClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: "2021-10-21",
-  token: process.env.SANITY_WRITE_TOKEN,
-  useCdn: true
-});
-
-export const getServerSideProps = async function ({ params }) {
+export async function getStaticProps ({ params }) {
   const { slug } = params;
-
-  const recipe = await configuredSanityClient.fetch(recipeQuery, {slug})
+  const recipe = await sanityClient.fetch(recipeQuery, { slug })
 
   if (!recipe) return { notFound: true }
 
-  return { props: { recipe } }
+  return { props: { data: { recipe }, preview: true } }
 }
+

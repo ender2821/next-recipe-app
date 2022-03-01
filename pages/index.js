@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import sanityClient from '@sanity/client';
-
-import SanityImage from '../components/SanityImage'
+import { sanityClient, urlFor } from '../lib/sanity'
 
 import styles from './index.module.css'
 
@@ -14,7 +12,7 @@ const recipesQuery = `*[_type == "recipe"]{
 }`;
 
 export default function Home({ recipes }) {
-
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -31,7 +29,7 @@ export default function Home({ recipes }) {
             <Link href={`/recipes/${recipe.slug.current}`}>
               <a>
                 <div className={styles.imageContain}>
-                  <SanityImage imageProps={recipe.mainImage} layout="fill" objectFit="cover" alt={recipe.name}/>
+                  <img src={urlFor(recipe.mainImage).url()} alt={recipe.name}/>
                 </div>
                 <span>{recipe.name}</span>
               </a>
@@ -43,19 +41,19 @@ export default function Home({ recipes }) {
   )
 }
 
-const configuredSanityClient = sanityClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  useCdn: false
-});
+// const configuredSanityClient = sanityClient({
+//   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+//   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+//   useCdn: false
+// });
 
 // We await this function so that on build time Next.js will prerender this page using these fetched props. 
-// export async function getStaticProps() {
-//   const recipes = await sanityClient.fetch(recipesQuery)
-//   return { props: { recipes } }
-// }
-
-export const getServerSideProps = async function () {
-  const recipes = await configuredSanityClient.fetch(recipesQuery)
+export async function getStaticProps() {
+  const recipes = await sanityClient.fetch(recipesQuery)
   return { props: { recipes } }
 }
+
+// export const getServerSideProps = async function () {
+//   const recipes = await configuredSanityClient.fetch(recipesQuery)
+//   return { props: { recipes } }
+// }

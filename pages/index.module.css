@@ -47,9 +47,9 @@
 
 .recipeCard img {
   display: block;
-  height: 300px;
-  object-fit: cover;
+  height: 100%;
   margin-bottom: 1.2rem;
+  object-fit: cover;
   width: 100%;
 }
 
