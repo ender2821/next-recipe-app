@@ -1,0 +1,32 @@
+
+.list {
+  padding: 0;
+}
+
+.ingredient {
+  displaY: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 1rem;
+}
+
+.imageContain {
+  border-radius: 5px;
+  display: flex;
+  height: 50px;
+  flex: 0 0 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+.imageContain img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.contentContain {
+  align-items: center;
+  display: flex;
+  flex: 1 0 auto;
+  padding-left: 1rem;
+}

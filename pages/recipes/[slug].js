@@ -93,6 +93,7 @@ export default function OneRecipe({ data, preview }) {
               </div>
               <div className={styles.contentContain}>
                 {ingredient?.wholeNumber}
+                {' '}
                 {ingredient?.fraction}
                 {' '}
                 {ingredient?.unit}
