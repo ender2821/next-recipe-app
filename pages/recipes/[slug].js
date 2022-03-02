@@ -96,7 +96,7 @@ export default function OneRecipe({ data, preview }) {
                 {ingredient?.fraction}
                 {' '}
                 {ingredient?.unit}
-                <br/>
+                {' '}
                 {ingredient?.ingredient?.name} 
               </div>
             </li>
@@ -104,7 +104,9 @@ export default function OneRecipe({ data, preview }) {
         </ul>
       </div>
       <div className={styles.directionsContain}>
-        <PortableText value={recipe?.instructions}/>
+        <div className={styles.textContain}>
+          <PortableText value={recipe?.instructions}/>
+        </div>
       </div>
     </article>
   )

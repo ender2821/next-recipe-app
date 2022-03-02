@@ -20,6 +20,18 @@ export default {
       name: "notes",
       title: "Notes",
       type: "text"
+    },
+    {
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of:[
+        {
+          name: "tag",
+          title: "Add a tag",
+          type: "string",
+        }
+      ]
     }
   ]
 }

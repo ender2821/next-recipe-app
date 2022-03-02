@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 
 import styles from './index.module.css'
 
-const recipesQuery = `*[_type == "recipe"]{
+const recipesQuery = `*[_type == "recipe"] | order(_createdAt desc){
+  _createdAt,
   _id,
   name,
   slug,
@@ -15,23 +16,46 @@ const recipesQuery = `*[_type == "recipe"]{
 
 export default function Home({ recipes }) {
 
+  const [ favoriteFilter, setFavoriteFilter ] = useState();
   const [ search, setSearch] = useState('');
   const [ searchData, setSearchData ] = useState([]);
+  const [ pageData, setPageData ] = useState([]);
 
   const onSearchHandler = event => {
     setSearch(event.target.value);
   }
 
+  const onFavoriteToggle = () => {
+    console.log('click')
+    if ( favoriteFilter ) {
+      setFavoriteFilter(false) 
+    } else {
+      setFavoriteFilter(true) 
+    }
+  }
+
+  useEffect(() => {
+    if ( favoriteFilter ) {
+      const filteredFavorites = recipes.filter((recipe) => {
+        return recipe.favorite === true;
+      });
+      setPageData(filteredFavorites)
+
+    } else {
+      setPageData(recipes)
+    }
+  }, [recipes, favoriteFilter])
+
   useEffect(() => {
     if(search !== '') {
-      const newSearchData = recipes.filter((recipe) => {
+      const newSearchData = pageData.filter((recipe) => {
         return Object.values(recipe.name).join('').toLowerCase().includes(search.toLowerCase())
       });
       setSearchData(newSearchData);
     } else {
-      setSearchData(recipes);
+      setSearchData(pageData);
     }
-  }, [search, recipes])
+  }, [search, pageData])
 
   const recipeList = (data) => {
     return (
@@ -67,9 +91,17 @@ export default function Home({ recipes }) {
       </Head>
 
       <h1>Lets cook some recipes</h1>
-      <input value={search} onChange={onSearchHandler} placeholder='Search Recipes' className={styles.search}></input>
+      <div className={styles.searchBar}>
+        <input value={search} onChange={onSearchHandler} placeholder='Search Recipes' className={styles.search}></input>
+        <button onClick={onFavoriteToggle} aria-label="sort by favorites" className={favoriteFilter ? styles.favoriteButtonActive : styles.favoriteButton}>
+          <svg width="15px" height="15px" viewBox="0 0 15 15" fill="currentColor" >
+            <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75
+            C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+          </svg>        
+        </button>
+      </div>
       <ul className={styles.recipesList}>
-      {search !== '' ? recipeList(searchData) : recipeList(recipes)}
+      {search !== '' ? recipeList(searchData) : recipeList(pageData)}
       </ul>
     </div>
   )
