@@ -5,6 +5,7 @@ sanityClient.config ({
 });
 
 export default async function favoriteButtonHandler(req, res) {
+  console.log(req)
   const { _id } = JSON.parse(req.body);
   const data = await sanityClient
     .patch(_id)

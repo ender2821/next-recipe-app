@@ -47,7 +47,6 @@ export default function OneRecipe({ data, preview }) {
 
   const handleFavorite = async() => {
     if ( favorite ) {
-      console.log('click!')
       const res = await fetch('/api/remove-favorite', {
         method: 'post',
         body: JSON.stringify({ _id: recipe._id}),

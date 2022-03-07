@@ -4,9 +4,21 @@
 }
 
 .ingredient {
+  background: #4e5052;
+  border-radius: 5px;
+  box-shadow:
+    0.6px 0.5px 1.1px rgba(0, 0, 0, 0.02),
+    1.5px 1.1px 2.7px rgba(0, 0, 0, 0.028),
+    2.9px 2.1px 5px rgba(0, 0, 0, 0.035),
+    5.1px 3.8px 8.9px rgba(0, 0, 0, 0.042),
+    9.6px 7.1px 16.7px rgba(0, 0, 0, 0.05),
+    23px 17px 40px rgba(0, 0, 0, 0.07)
+  ;
   displaY: flex;
   flex-wrap: nowrap;
   margin-bottom: 1rem;
+  max-width: 500px;
+  width: 100%;
 }
 
 .imageContain {
@@ -29,4 +41,22 @@
   display: flex;
   flex: 1 0 auto;
   padding-left: 1rem;
+}
+
+.delete {
+  background: none;
+  border: 1px solid #878787;
+  border-radius: 50%;
+  color: #878787;
+  cursor: pointer;
+  display: flex;
+  margin-left: auto;
+  margin-right: 10px;
+  padding: 10px;
+  transition: border 125ms ease;
+}
+
+.delete svg {
+  width: 10px;
+  height: 10px;
 }
