@@ -59,4 +59,5 @@
 .delete svg {
   width: 10px;
   height: 10px;
+  pointer-events: none;
 }

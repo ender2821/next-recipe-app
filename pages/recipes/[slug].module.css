@@ -28,7 +28,11 @@
 }
 
 .page ul {
+  margin: 0;
+  padding: 0;
+}
 
+.ingredientContain {
   background: #4e5052;
   box-shadow:
     0.6px 0.5px 1.1px rgba(0, 0, 0, 0.02),
@@ -39,8 +43,43 @@
     23px 17px 40px rgba(0, 0, 0, 0.07)
   ;
   flex: 1 0 100%;
-  margin: 0;
   padding: 20px;
+}
+
+.ingredientContain button{
+  align-items: center;
+  background: none;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  height: 50px;
+  margin-bottom: 10px;
+  padding: 10px 20px 10px 15px;
+  transition: border 12ms ease, color 125ms ease, background 125ms ease;
+}
+
+.ingredientContain button:hover,
+.ingredientContain button:focus {
+  background:#5d6062;
+}
+
+.ingredientContain button:disabled {
+  border: 1px solid #747474;
+  color: #747474;
+  cursor: default;
+}
+
+.ingredientContain button:disabled:hover,
+.ingredientContain button:disabled:focus {
+  background: none;
+}
+
+.ingredientContain button svg {
+  height: 24px;
+  margin: 0 20px 0 0;
+  width: 24px;
 }
 
 @media screen and ( min-width: 768px) {
@@ -56,8 +95,21 @@
   }
 
   .page ul {
-    flex: 1 0 calc(50% - 20px);
   }
+
+  .ingredientContain {
+    flex: 1 0 calc(50% - 20px);
+
+  }
+}
+
+.title h1 {
+  margin-right: 20px;
+}
+
+.title {
+  align-items: center;
+  display: flex;
 }
 
 
@@ -67,9 +119,9 @@
   border-radius: 50%;
   cursor: pointer;
   displaY: flex;
-  margin-bottom: 20px;
+  height: 40px;
   padding: 10px;
-
+  width: 40px;
 }
 
 .favButtonActive svg{
@@ -83,9 +135,10 @@
   border-radius: 50%;
   cursor: pointer;
   display: flex;
-  margin-bottom: 20px;
+  height: 40px;
   padding: 10px;
   transition: border 125ms ease;
+  width: 40px;
 }
 
 .favButton:hover, .favButton:focus {

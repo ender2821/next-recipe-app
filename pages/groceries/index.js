@@ -13,10 +13,9 @@ const groceriesQuery = `*[_type == "groceries"] {
     unit,
     wholeNumber,
     fraction,
-    ingredient->{
-      _id,
+    ingredient{
       name,
-      image
+      image,
     }
   }
 }`;
@@ -46,7 +45,7 @@ export default function GroceryList({ groceries }) {
     <>
       <h1>{data?.groceries[0].name}</h1>
       <ul className={styles.list}>
-        {data?.groceries[0].ingredient.map((ingredient) => (
+        {data?.groceries[0]?.ingredient?.map((ingredient) => (
           <li key={ingredient._key} className={styles.ingredient}>
             <div className={styles.imageContain} >
               <img src={urlFor(ingredient?.ingredient?.image).url()} alt={ingredient?.ingredient?.name}/>

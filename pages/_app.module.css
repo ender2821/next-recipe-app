@@ -1,8 +1,12 @@
 .header {
   background: #343535;
+}
+
+.headerWrap {
   displaY: flex;
-  justify-content: center;
-  padding: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .header a {
@@ -16,6 +20,31 @@
   margin: 0 auto;
   padding: 20px;
   width: 100%;
+}
+
+.navLink {
+  align-items: center;
+  background: #343535;
+  display: flex;
+  padding: 2rem;
+  transition: background 125ms ease;
+}
+
+.navLinkActive {
+  align-items: center;
+  background: #3f4040;
+  display: flex;
+  padding: 2rem;
+  transition: background 125ms ease;
+}
+
+.navLink:hover,
+.navLink:active {
+  background: #3f4040;
+}
+
+.navLink svg {
+  margin-right: 10px;
 }
 
 @media screen and ( min-width: 769px ) {
