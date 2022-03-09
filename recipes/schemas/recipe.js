@@ -65,6 +65,11 @@ export default {
               options: {
                 list: ["grams", "cup", "tbsp", "tsp", "oz", "lb"]
               }
+            },
+            {
+              name: "detail",
+              title: "Detail",
+              type: "string"
             }
           ],
           preview: {
@@ -74,20 +79,22 @@ export default {
               media: "ingredient.image",
               wholeNumber: "wholeNumber",
               fraction: "fraction",
-              unit: "unit"
+              unit: "unit",
+              detail: "detail"
             },
 
             prepare({
               title,
               subtitle,
               media,
-              wholeNumber = "(No whole number set)",
-              fraction = "(No fraction set)",
-              unit = "(No unit set)"
+              wholeNumber = "",
+              fraction = "",
+              unit = "",
+              detail = ""
             }) {
               return {
                 title,
-                subtitle: `${wholeNumber} ${fraction} ${unit}`,
+                subtitle: `${wholeNumber} ${fraction} ${unit} ${detail}`,
                 media
               } 
             }

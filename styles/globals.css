@@ -34,3 +34,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 1.6rem;
 }
+
+p {
+  line-height: 2.6rem;
+}
