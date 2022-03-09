@@ -20,14 +20,14 @@ const recipeQuery = `*[_type == "recipe" && slug.current == $slug][0]{
     ingredient->{
       name,
       image,
-      tags
+      section
     }
   },
   instructions,
   favorite
 }`;
 
-export default function OneRecipe({ data, preview }) {
+export default function OneRecipe({ data }) {
   
   const [favorite, setFavorite] = useState(data?.recipe?.favorite);
   const [groceryList, setGroceryList] = useState();

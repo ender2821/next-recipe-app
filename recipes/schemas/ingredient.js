@@ -22,16 +22,12 @@ export default {
       type: "text"
     },
     {
-      name: "tags",
-      title: "Tags",
-      type: "array",
-      of:[
-        {
-          name: "tag",
-          title: "Add a tag",
-          type: "string",
-        }
-      ]
+      name: "section",
+      title: "Supermarket Section",
+      type: "string",
+      options: {
+        list: ["dairy", "produce", "meat", "canned", "dry", "spices", "frozen", "alcohol", "baking", "condiment", "bread", "beverage", "misc"].sort()
+      }
     }
   ]
 }

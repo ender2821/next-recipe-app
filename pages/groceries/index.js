@@ -16,6 +16,7 @@ const groceriesQuery = `*[_type == "groceries"] {
     ingredient{
       name,
       image,
+      section
     }
   }
 }`;
@@ -24,6 +25,34 @@ const groceriesQuery = `*[_type == "groceries"] {
 export default function GroceryList({ groceries }) {
   const data = { groceries } 
   const router = useRouter();
+  
+  const initialData = data.groceries[0].ingredient;
+  const sortKey = ["produce", "alcohol", "meat", "bread", "condiment", "dry", "spices", "canned", "dairy", "baking", "beverage", "frozen", "misc"]
+
+  const sortedData = initialData.sort(function(x, y){
+    const section1 = x.ingredient.section;
+    const section2 = y.ingredient.section;
+
+    const idx1 = sortKey.findIndex((x)=> x === section1);
+    const idx2 = sortKey.findIndex((x)=> x === section2);
+
+
+    if (idx1<idx2){
+      return -1;
+    } 
+    if (idx1 > idx2){
+      return 1;
+    }
+
+    if (x.ingredient.name < y.ingredient.name){
+      return -1;
+    }
+    if (x.ingredient.name > y.ingredient.name){
+      return 1;
+    }
+    return 0;
+
+  });
 
   const handleDelete = async(event) => {
       const ingredientId = event.target.value;
@@ -43,9 +72,9 @@ export default function GroceryList({ groceries }) {
 
   return (
     <>
-      <h1>{data?.groceries[0].name}</h1>
+      <h1>{data?.groceries[0].ingredient.length <= 0 ? 'Add some recipes' : data?.groceries[0].name}</h1>
       <ul className={styles.list}>
-        {data?.groceries[0]?.ingredient?.map((ingredient) => (
+        {data && sortedData.map((ingredient) => (
           <li key={ingredient._key} className={styles.ingredient}>
             <div className={styles.imageContain} >
               <img src={urlFor(ingredient?.ingredient?.image).url()} alt={ingredient?.ingredient?.name}/>

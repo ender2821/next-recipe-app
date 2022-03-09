@@ -43,7 +43,8 @@
   background: #3f4040;
 }
 
-.navLink svg {
+.navLink svg,
+.navLinkActive svg{
   margin-right: 10px;
 }
 
