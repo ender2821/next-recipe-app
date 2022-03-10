@@ -17,6 +17,7 @@ const recipeQuery = `*[_type == "recipe" && slug.current == $slug][0]{
     unit,
     wholeNumber,
     fraction,
+    detail,
     ingredient->{
       name,
       image,
@@ -117,6 +118,8 @@ export default function OneRecipe({ data }) {
                   {ingredient?.unit}
                   {' '}
                   {ingredient?.ingredient?.name} 
+                  {' '}
+                  {ingredient?.detail}
                 </div>
               </li>
             ))}
