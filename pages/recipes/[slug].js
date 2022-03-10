@@ -111,15 +111,7 @@ export default function OneRecipe({ data }) {
                   <img src={urlFor(ingredient?.ingredient?.image).url()} alt={ingredient?.ingredient?.name}/>
                 </div>
                 <div className={styles.contentContain}>
-                  {ingredient?.wholeNumber}
-                  {' '}
-                  {ingredient?.fraction}
-                  {' '}
-                  {ingredient?.unit}
-                  {' '}
-                  {ingredient?.ingredient?.name} 
-                  {' '}
-                  {ingredient?.detail}
+                  <p>{ingredient?.wholeNumber} {ingredient?.fraction} {ingredient?.unit} {ingredient?.ingredient?.name} {ingredient?.detail}</p>
                 </div>
               </li>
             ))}

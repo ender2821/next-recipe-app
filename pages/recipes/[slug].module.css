@@ -180,8 +180,12 @@
 .contentContain {
   align-items: center;
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 0 calc( 100% - 50px );
   padding-left: 1rem;
+}
+
+.contentContain p {
+  margin: 0;
 }
 
 .directionsContain {
