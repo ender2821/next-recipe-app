@@ -103,6 +103,12 @@
   }
 }
 
+@media screen and ( max-width: 600px ) {
+  .ingredientContain button {
+    width: 100%;
+  }
+}
+
 .title h1 {
   margin-right: 20px;
 }

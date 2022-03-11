@@ -8,6 +8,7 @@ const groceriesQuery = `*[_type == "groceries"] {
   _id,
   name,
   slug,
+  location,
   ingredient[]{
     _key,
     unit,
@@ -18,7 +19,7 @@ const groceriesQuery = `*[_type == "groceries"] {
       image,
       section
     }
-  }
+  },
 }`;
 
 
@@ -27,8 +28,7 @@ export default function GroceryList({ groceries }) {
   const router = useRouter();
   
   const initialData = data.groceries[0].ingredient;
-  const sortKey = ["produce", "alcohol", "meat", "bread", "condiment", "dry", "spices", "canned", "dairy", "baking", "beverage", "frozen", "misc"]
-
+  const sortKey = data.groceries[0].location
   const sortedData = initialData.sort(function(x, y){
     const section1 = x.ingredient.section;
     const section2 = y.ingredient.section;

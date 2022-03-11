@@ -73,8 +73,6 @@ export default function OneRecipe({ data }) {
     }
   }
 
-  console.log(data)
-
   return (
     <article className={styles.recipe}>
       <div className={styles.title}>

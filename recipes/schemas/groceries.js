@@ -18,6 +18,13 @@ export default {
       }
     },
     {
+      name: "location",
+      title: "Location",
+      type: "array",
+      initialValue: ["dairy", "produce", "meat", "canned", "dry", "spices", "frozen", "alcohol", "baking", "condiment", "bread", "beverage", "misc"].sort(),
+      of: [{type: 'string'}],
+    },
+    {
       name: "ingredient",
       title: "Ingredient",
       type: "array",

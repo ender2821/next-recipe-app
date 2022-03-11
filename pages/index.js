@@ -26,7 +26,6 @@ export default function Home({ recipes }) {
   }
 
   const onFavoriteToggle = () => {
-    console.log('click')
     if ( favoriteFilter ) {
       setFavoriteFilter(false) 
     } else {

@@ -26,7 +26,7 @@ export default {
       title: "Supermarket Section",
       type: "string",
       options: {
-        list: ["dairy", "produce", "meat", "canned", "dry", "spices", "frozen", "alcohol", "baking", "condiment", "bread", "beverage", "misc"].sort()
+        list: ["dairy", "produce", "meat", "canned", "dry", "spices", "frozen", "snack", "alcohol", "baking", "condiment", "bread", "beverage", "misc"].sort()
       }
     }
   ]
