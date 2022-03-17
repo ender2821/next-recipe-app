@@ -7,6 +7,7 @@ import chef from "./chef"
 import ingredient from "./ingredient"
 import recipe from "./recipe"
 import groceries from "./groceries"
+import cocktail from "./cocktail"
 
 
 // Then we give our schema to the builder and provide the result to Sanity
@@ -21,6 +22,7 @@ export default createSchema({
     chef,
     ingredient,
     recipe,
-    groceries
+    groceries,
+    cocktail
   ]),
 })

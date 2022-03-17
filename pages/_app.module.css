@@ -26,7 +26,8 @@
   align-items: center;
   background: #343535;
   display: flex;
-  padding: 2rem;
+  flex: 1 0 auto;
+  padding: 1rem;
   transition: background 125ms ease;
 }
 
@@ -34,7 +35,8 @@
   align-items: center;
   background: #3f4040;
   display: flex;
-  padding: 2rem;
+  flex: 1 0 auto;
+  padding: 1rem;
   transition: background 125ms ease;
 }
 
@@ -51,5 +53,15 @@
 @media screen and ( min-width: 769px ) {
   .wrap {
     padding: 40px 20px 80px 20px;
+  }
+
+  .navLink {
+    flex: 0 0 auto;
+    padding: 2rem;
+  }
+  
+  .navLinkActive {
+    flex: 0 0 auto;
+    padding: 2rem;
   }
 }
