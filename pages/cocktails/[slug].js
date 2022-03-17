@@ -40,7 +40,6 @@ export default function OneRecipe({ data }) {
   }
 
   const { cocktail } = data;
-  console.log(cocktail)
 
   const handleFavorite = async() => {
     if ( favorite ) {
