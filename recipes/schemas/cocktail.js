@@ -63,7 +63,7 @@ export default {
               title: "Unit",
               type: "string",
               options: {
-                list: ["grams", "cup", "mL", "dash", "tbsp", "barspoon", "tsp", "oz", "part"].sort()
+                list: ["gram", "cup", "mL", "dash", "tbsp", "barspoon", "tsp", "oz", "part"].sort()
               }
             },
             {
