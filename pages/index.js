@@ -18,6 +18,8 @@ const recipesQuery = `*[_type == "recipe"] | order(_createdAt desc){
 
 export default function Home({ recipes }) {
 
+  const placeholder = 'Search Recipes';
+
   const [ favoriteFilter, setFavoriteFilter ] = useState();
   const [ search, setSearch] = useState('');
   const [ searchData, setSearchData ] = useState([]);
@@ -67,7 +69,7 @@ export default function Home({ recipes }) {
       </Head>
 
       <h1>Lets cook some recipes</h1>
-      <RecipeListSearch search={search} onSearchHandler={onSearchHandler} onFavoriteToggle={onFavoriteToggle} favoriteFilter={favoriteFilter} />
+      <RecipeListSearch search={search} placeholder={placeholder} onSearchHandler={onSearchHandler} onFavoriteToggle={onFavoriteToggle} favoriteFilter={favoriteFilter} />
       <RecipeList data={search !== '' ? searchData : pageData} page={'recipes'} />
     </div>
   )
@@ -76,5 +78,5 @@ export default function Home({ recipes }) {
 // We await this function so that on build time Next.js will prerender this page using these fetched props. 
 export async function getStaticProps() {
   const recipes = await sanityClient.fetch(recipesQuery)
-  return { props: { recipes } }
+  return { props: { recipes }, revalidate: 60, }
 }

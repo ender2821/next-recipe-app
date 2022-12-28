@@ -14,8 +14,8 @@
     9.6px 7.1px 16.7px rgba(0, 0, 0, 0.05),
     23px 17px 40px rgba(0, 0, 0, 0.07)
   ;
-  displaY: flex;
-  flex-wrap: nowrap;
+  displaY: grid;
+  grid-template-columns: 50px 1fr 50px;
   margin-bottom: 1rem;
   max-width: 500px;
   width: 100%;
@@ -25,7 +25,6 @@
   border-radius: 5px;
   display: flex;
   height: 50px;
-  flex: 0 0 50px;
   overflow: hidden;
   position: relative;
 }
@@ -39,8 +38,14 @@
 .contentContain {
   align-items: center;
   display: flex;
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   padding-left: 1rem;
+  position: relative;
+}
+
+.buttonContain {
+  align-items:  center;
+  displaY: flex;
 }
 
 .delete {

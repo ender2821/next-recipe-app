@@ -16,6 +16,7 @@ const cocktailsQuery = `*[_type == "cocktail"] | order(_createdAt desc){
 }`;
 
 export default function Home({ cocktails }) {
+  const placeholder = 'Search Cocktails';
 
   const [ favoriteFilter, setFavoriteFilter ] = useState();
   const [ search, setSearch] = useState('');
@@ -60,7 +61,7 @@ export default function Home({ cocktails }) {
   return (
     <div className={styles.container}>
       <h1>Lets make some cocktails</h1>
-      <RecipeListSearch search={search} onSearchHandler={onSearchHandler} onFavoriteToggle={onFavoriteToggle} favoriteFilter={favoriteFilter} />
+      <RecipeListSearch search={search} placeholder={placeholder} onSearchHandler={onSearchHandler} onFavoriteToggle={onFavoriteToggle} favoriteFilter={favoriteFilter} />
       <RecipeList data={search !== '' ? searchData : pageData} page={'cocktails'} />
     </div>
   )
@@ -69,5 +70,5 @@ export default function Home({ cocktails }) {
 // We await this function so that on build time Next.js will prerender this page using these fetched props. 
 export async function getStaticProps() {
   const cocktails = await sanityClient.fetch(cocktailsQuery)
-  return { props: { cocktails } }
+  return { props: { cocktails }, revalidate: 60, }
 }

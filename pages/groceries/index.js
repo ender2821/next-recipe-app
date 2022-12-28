@@ -80,17 +80,21 @@ export default function GroceryList({ groceries }) {
               <img src={urlFor(ingredient?.ingredient?.image).url()} alt={ingredient?.ingredient?.name}/>
             </div>
             <div className={styles.contentContain}>
-              {ingredient?.wholeNumber}
-              {' '}
-              {ingredient?.fraction}
-              {' '}
-              {ingredient?.unit}
-              {' '}
-              {ingredient?.ingredient?.name} 
+              <div className={styles.titleContain}>
+                {ingredient?.wholeNumber}
+                {' '}
+                {ingredient?.fraction}
+                {' '}
+                {ingredient?.unit}
+                {' '}
+                {ingredient?.ingredient?.name} 
+              </div>
+            </div>
+            <div className={styles.buttonContain}>
               <button value={ingredient?._key} onClick={handleDelete} className={styles.delete}>
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1000 1000" fill="currentColor">
-                <path d="M945.7,989.4L10,53.8L54.3,9.4L990,945.1L945.7,989.4z"/><path d="M10,946.2L945.7,10.6L990,54.9L54.3,990.6L10,946.2L10,946.2z"/>
-              </svg>              
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1000 1000" fill="currentColor">
+                  <path d="M945.7,989.4L10,53.8L54.3,9.4L990,945.1L945.7,989.4z"/><path d="M10,946.2L945.7,10.6L990,54.9L54.3,990.6L10,946.2L10,946.2z"/>
+                </svg>              
               </button>
             </div>
           </li>
