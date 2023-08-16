@@ -66,6 +66,18 @@ export default function GroceryList({ groceries }) {
       }).catch((error) => console.log(error));
   };
 
+  const ingredientKeys = data?.groceries[0].ingredient.map((item) => `_key=="${item._key}"`);
+
+  const handleFullListDelete = async(event) => {
+    const res = await fetch('/api/delete-all-ingredients', {
+      method: 'post',
+      body: JSON.stringify({ _id: data.groceries[0]._id, ingredientKeys: ingredientKeys}),
+    }).then(() => {
+      router.replace(router.asPath);
+      const deleteStatus = res.json();
+    }).catch((error) => console.log(error));
+  }
+
   if( router.isFallback ) {
     return <div>...Loading</div>;
   }
@@ -73,6 +85,17 @@ export default function GroceryList({ groceries }) {
   return (
     <>
       <h1>{data?.groceries[0].ingredient.length <= 0 ? 'Add some recipes' : data?.groceries[0].name}</h1>
+      {data?.groceries[0].ingredient.length > 0 && (
+        <button onClick={handleFullListDelete} className={styles.deleteAll}>
+          <div className={styles.delete}>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1000 1000" fill="currentColor">
+              <path d="M945.7,989.4L10,53.8L54.3,9.4L990,945.1L945.7,989.4z"/><path d="M10,946.2L945.7,10.6L990,54.9L54.3,990.6L10,946.2L10,946.2z"/>
+            </svg>   
+            </div> 
+          Delete all          
+        </button>
+        )
+      }
       <ul className={styles.list}>
         {data && sortedData.map((ingredient) => (
           <li key={ingredient._key} className={styles.ingredient}>

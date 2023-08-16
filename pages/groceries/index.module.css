@@ -48,6 +48,18 @@
   displaY: flex;
 }
 
+.deleteAll {
+  align-items: center;
+  background: none;
+  border: 1px solid #878787;
+  border-radius: 5px;
+  color: #878787;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
 .delete {
   background: none;
   border: 1px solid #878787;
