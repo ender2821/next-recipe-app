@@ -68,6 +68,8 @@ export default function GroceryList({ groceries }) {
 
   const ingredientKeys = data?.groceries[0].ingredient.map((item) => `_key=="${item._key}"`);
 
+  console.log(`ingredient[${ingredientKeys}]`)
+
   const handleFullListDelete = async(event) => {
     const res = await fetch('/api/delete-all-ingredients', {
       method: 'post',
