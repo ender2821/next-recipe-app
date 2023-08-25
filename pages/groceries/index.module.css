@@ -3,6 +3,11 @@
   padding: 0;
 }
 
+.headerContain {
+  align-items: center;
+  display: flex;
+}
+
 .ingredient {
   background: #4e5052;
   border-radius: 5px;
@@ -57,7 +62,9 @@
   cursor: pointer;
   display: flex;
   gap: 10px;
+  height: 50px;
   padding: 10px;
+  margin-left: auto;
 }
 
 .delete {
